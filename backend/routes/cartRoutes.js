@@ -5,7 +5,7 @@ const {
   removeFromCart,
   clearCart
 } = require('../Controllers/cartController');
-const { protect } = require('../middleware/authMiddleware');
+const { protect } = require('../Middleware/authMiddleware');
 const router = express.Router();
 
 router.post('/', protect,addToCart);

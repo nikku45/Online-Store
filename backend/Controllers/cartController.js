@@ -3,9 +3,10 @@ const Cart = require('../models/Cart');
 // 📦 Add or Update product in cart
 exports.addToCart = async (req, res) => {
   const userId = req.user.userId;
-  const { productId, qty } = req.body;
+  const { productId, quantity } = req.body;
+  console.log('Adding to cart:', { userId, productId, quantity });
 
-  if (!productId || !qty || qty < 1) {
+  if (!productId || !quantity || quantity < 1) {
     return res.status(400).json({ message: 'Invalid product or quantity' });
   }
 
@@ -15,7 +16,7 @@ exports.addToCart = async (req, res) => {
     if (!cart) {
       cart = new Cart({
         user: userId,
-        items: [{ productId, qty }]
+        items: [{ productId, qty: quantity }],
       });
     } else {
       const itemIndex = cart.items.findIndex(
@@ -23,9 +24,9 @@ exports.addToCart = async (req, res) => {
       );
 
       if (itemIndex > -1) {
-        cart.items[itemIndex].qty = qty; // update qty
+        cart.items[itemIndex].qty += quantity; // update qty
       } else {
-        cart.items.push({ productId, qty });
+        cart.items.push({ productId, qty: quantity }); // add new item
       }
     }
 

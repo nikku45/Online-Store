@@ -118,15 +118,15 @@ const Checkout = () => {
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
+      // console.log('Order response:', res.data);
       toast.success('Order placed successfully!');
 
-      // Clear cart
+      
       await api.delete('/cart', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      navigate('/orders');
+      navigate(`/orders/${res.data._id}`);
     } catch (err) {
       console.error(err);
       toast.error('Failed to place order');

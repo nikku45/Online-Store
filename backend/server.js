@@ -1,22 +1,22 @@
 const express=require('express');
 const app=express();
-const mongoose = require('./config/db'); // Import the database configuration
-const cors = require('cors'); // Import CORS middleware
-require('dotenv').config(); // Load environment variables from .env file
+const mongoose = require('./config/db'); 
+const cors = require('cors'); 
+require('dotenv').config(); 
 
-app.use(express.json()); // Middleware to parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); 
 app.use(cors(
     {
-        origin: process.env.CLIENT_URL || 'http://localhost:5173', // Allow requests from the frontend
-        credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+        origin: process.env.CLIENT_URL || 'http://localhost:5173', 
+        credentials: true, 
     }
 ))
 
 const authRoute = require('./routes/authRoute');
 const productRoute = require('./routes/productRoute');
 const orderRoute = require('./routes/orderRoute');
-const cartRoute = require('./routes/cartRoutes'); // Import cart routes
+const cartRoute = require('./routes/cartRoutes'); 
 
 
 app.get('/',(req,res)=>{
@@ -27,7 +27,7 @@ app.get('/',(req,res)=>{
 app.use('/auth',authRoute)
 app.use('/products', productRoute);
 app.use('/orders', orderRoute);
-app.use('/cart', cartRoute); // Import and use cart routes
+app.use('/cart', cartRoute); 
 
 
 app.listen(process.env.PORT || 3000,()=>{

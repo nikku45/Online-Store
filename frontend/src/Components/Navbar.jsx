@@ -2,17 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export default function Navbar({ onCartClick }) {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   setIsLoggedIn(!!token);
-  // }, [isLoggedIn]);
+
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    // setIsLoggedIn(false);
+    
     navigate('/login');
   };
 
@@ -45,10 +42,10 @@ export default function Navbar({ onCartClick }) {
               Wishlist
             </Link>
             <Link
-              to="/checkout"
+              to="/orders"
               className="hover:bg-gray-700 px-3 py-2 rounded"
             >
-              Checkout
+              Order
             </Link>
           </div>
 

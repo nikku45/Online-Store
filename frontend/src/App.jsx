@@ -12,6 +12,7 @@ import SignUp from './Pages/SignUp.jsx'
 import Cart from './Pages/Cart.jsx'
 import Checkout from './Pages/CheckOut.jsx'
 import Order from './Pages/Order.jsx'
+import OrderDetails from './Pages/OrderDetail.jsx'
 
 
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path='/orders' element={<Order/>} />
+        <Route path='/orders/:orderId' element={<OrderDetails />} />
       </Routes>
       </div>
       

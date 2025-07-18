@@ -1,7 +1,7 @@
 const Product = require('../models/Product');
 
 exports.getProducts = async (req, res) => {
-    console.log('Request accepted,Fetching products...');
+    // console.log('Request accepted,Fetching products...');
   try {
     const products = await Product.find();
     res.json(products);

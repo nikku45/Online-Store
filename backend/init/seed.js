@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const Product = require('../models/Product');
 
 require('dotenv').config({ path: '../.env' });
-
-// console.log(process.env.DATABASE_URL); Ensure the environment variable is set
 mongoose.connect(process.env.DATABASE_URL)
   .then(() => {
     console.log('MongoDB connected');

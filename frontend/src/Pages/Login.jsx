@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import api from '../api/api';
 
 const Login = () => {
@@ -15,7 +16,7 @@ const Login = () => {
     try {
       const res = await api.post('/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
-      navigate('/'); // redirect to home
+      navigate('/'); 
     } catch (err) {
       console.error(err);
       setError('Invalid email or password.');
@@ -60,6 +61,9 @@ const Login = () => {
         >
           Login
         </button>
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Sign Up</Link>
+        </p>
       </form>
     </div>
   );

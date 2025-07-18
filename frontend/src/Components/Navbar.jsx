@@ -2,17 +2,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export default function Navbar({ onCartClick }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   setIsLoggedIn(!!token);
+  // }, [isLoggedIn]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setIsLoggedIn(false);
+    // setIsLoggedIn(false);
     navigate('/login');
   };
 
@@ -32,12 +32,12 @@ export default function Navbar({ onCartClick }) {
             <Link to="/" className="hover:bg-gray-700 px-3 py-2 rounded">
               Home
             </Link>
-            <button
+            <Link
               onClick={onCartClick}
               className="hover:bg-gray-700 px-3 py-2 rounded"
             >
               Cart
-            </button>
+            </Link>
             <Link
               to="/wishlist"
               className="hover:bg-gray-700 px-3 py-2 rounded"
@@ -53,7 +53,7 @@ export default function Navbar({ onCartClick }) {
           </div>
 
           <div>
-            {isLoggedIn ? (
+            {localStorage.getItem('token') ? (
               <button
                 onClick={handleLogout}
                 className="bg-red-500 hover:bg-red-600 px-3 py-2 rounded text-sm"
@@ -63,9 +63,9 @@ export default function Navbar({ onCartClick }) {
             ) : (
               <Link
                 to="/login"
-                className="bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded text-sm"
+                className="bg-blue-500 hover:bg-blue-300 px-3 py-2 rounded text-sm text-black"
               >
-                Login
+                Login/SignUp
               </Link>
             )}
           </div>

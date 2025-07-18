@@ -10,6 +10,7 @@ import {
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import api from '../api/api';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function CartDrawer({ open, setOpen }) {
   const [cart, setCart] = useState(null);
@@ -19,7 +20,10 @@ export default function CartDrawer({ open, setOpen }) {
   const fetchCart = async () => {
     try {
       const token = localStorage.getItem('token');
+      // console.log('Fetching cart with token:', token);
       if (!token) {
+        setOpen(false);
+        toast.error('Please login to view your cart');
         navigate('/login');
         return;
       }
@@ -46,6 +50,39 @@ export default function CartDrawer({ open, setOpen }) {
       console.error(err);
     }
   };
+
+  const handleUpdateQty = async (productId, currentQty, action) => {
+    console.log('Updating quantity:', productId, currentQty, action);
+    try {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    if (action === 'increment') {
+     const res= await api.post(
+        '/cart',
+        { productId, quantity: currentQty + 1 },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log('Increment response:', res.data);
+    } else if (action === 'decrement') {
+      if (currentQty === 1) {
+        // remove the item
+        await handleRemove(productId);
+      } else {
+        await api.post(
+          '/cart',
+          { productId, quantity: currentQty - 1 },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      }
+    }
+
+    // Refresh cart after update
+    fetchCart();
+  } catch (err) {
+    console.error(err);
+  }
+  }
 
   useEffect(() => {
     if (open) fetchCart();
@@ -116,9 +153,11 @@ export default function CartDrawer({ open, setOpen }) {
                                       ₹{item.productId.price * item.qty}
                                     </p>
                                   </div>
+                                  <button onClick={() => handleUpdateQty(item.productId._id, item.qty,"decrement")} className='font-bold'>-</button>
                                   <p className="mt-1 text-sm text-gray-500">
                                     Qty: {item.qty}
                                   </p>
+                                  <button onClick={() => handleUpdateQty(item.productId._id, item.qty,"increment")} className='font-bold'>+</button>
                                 </div>
                                 <div className="flex flex-1 items-end justify-between text-sm">
                                   <div className="flex">

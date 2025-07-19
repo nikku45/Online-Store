@@ -25,7 +25,7 @@ you can access the live application at:
 Use the following credentials to log in:
 
 ```
-Username: penthara@gmail.com
+email: penthara@gmail.com
 Password: 1234
 ```
 

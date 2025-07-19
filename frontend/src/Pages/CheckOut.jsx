@@ -23,6 +23,7 @@ const Checkout = () => {
     cardholderName: ''
   });
   const [processingOrder, setProcessingOrder] = useState(false);
+  
   const navigate = useNavigate();
 
   const fetchCart = async () => {
@@ -87,6 +88,7 @@ const Checkout = () => {
   };
 
   const handlePlaceOrder = async () => {
+   
     if (!validateForm()) return;
     
     setProcessingOrder(true);

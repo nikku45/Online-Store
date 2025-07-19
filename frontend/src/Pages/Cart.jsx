@@ -65,7 +65,7 @@ export default function CartDrawer({ open, setOpen }) {
       console.log('Increment response:', res.data);
     } else if (action === 'decrement') {
       if (currentQty === 1) {
-        // remove the item
+    
         await handleRemove(productId);
       } else {
         await api.post(
@@ -76,7 +76,7 @@ export default function CartDrawer({ open, setOpen }) {
       }
     }
 
-    // Refresh cart after update
+
     fetchCart();
   } catch (err) {
     console.error(err);
@@ -125,7 +125,7 @@ export default function CartDrawer({ open, setOpen }) {
                       {loading ? (
                         <p>Loading cart...</p>
                       ) : !cart?.items?.length ? (
-                        <p>Your cart is empty.</p>
+                        <p className='text-gray-500'>Your cart is empty.</p>
                       ) : (
                         <ul
                           role="list"
@@ -191,8 +191,11 @@ export default function CartDrawer({ open, setOpen }) {
                   <div className="mt-6">
                     <Link
                       to="/checkout"
+                      disabled={cart?.items?.length === 0}
                       onClick={() => setOpen(false)}
-                      className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow hover:bg-indigo-700"
+                      className={`flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow hover:bg-indigo-700 ${
+                        cart?.items?.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
                     >
                       Checkout
                     </Link>

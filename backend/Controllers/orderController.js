@@ -1,9 +1,9 @@
 const Order = require('../models/Order');
 
-// 📦 Place Order
+
 exports.placeOrder = async (req, res) => {
   try {
-    const userId = req.user.userId; // comes from JWT middleware
+    const userId = req.user.userId; 
     const { items, total } = req.body;
 
     if (!items || items.length === 0) {
@@ -29,7 +29,7 @@ exports.placeOrder = async (req, res) => {
   }
 };
 
-// 📋 Get all orders of logged-in user, sorted by most recent
+
 exports.getUserOrders = async (req, res) => {
   try {
     const userId = req.user.userId;
@@ -37,7 +37,7 @@ exports.getUserOrders = async (req, res) => {
     const orders = await Order.find({ user: userId })
       .populate('items.productId', 'name price image')
       .populate('user', 'name email')
-      .sort({ createdAt: -1 }); // most recent first
+      .sort({ createdAt: -1 }); 
 
     res.json(orders);
   } catch (err) {
@@ -46,7 +46,7 @@ exports.getUserOrders = async (req, res) => {
   }
 };
 
-// 📋 Get order details by ID
+
 exports.getOrderById = async (req, res) => {
   try {
     const { orderId } = req.params;

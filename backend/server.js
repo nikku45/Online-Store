@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 app.use(cors(
     {
-        origin: process.env.CLIENT_URL || 'https://teemart.vercel.app', 
+        origin: process.env.CLIENT_URL , 
         credentials: true, 
     }
 ))
@@ -17,6 +17,7 @@ const authRoute = require('./routes/authRoute');
 const productRoute = require('./routes/productRoute');
 const orderRoute = require('./routes/orderRoute');
 const cartRoute = require('./routes/cartRoutes'); 
+const wishlistRoute = require('./routes/wishlistRoute');
 
 
 app.get('/',(req,res)=>{
@@ -28,6 +29,7 @@ app.use('/auth',authRoute)
 app.use('/products', productRoute);
 app.use('/orders', orderRoute);
 app.use('/cart', cartRoute); 
+app.use('/wishlist', wishlistRoute);
 
 
 app.listen(process.env.PORT || 3000,()=>{

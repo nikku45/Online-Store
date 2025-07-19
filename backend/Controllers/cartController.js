@@ -1,11 +1,10 @@
 const Cart = require('../models/Cart');
 
-// 📦 Add or Update product in cart
 exports.addToCart = async (req, res) => {
-  // console.log("Increment or decrement or add to cart request received");
+  
   const userId = req.user.userId;
   const { productId, quantity } = req.body;
-  // console.log('Adding to cart:', { userId, productId, quantity });
+
 
   if (!productId || !quantity || quantity < 1) {
     return res.status(400).json({ message: 'Invalid product or quantity' });
@@ -25,9 +24,9 @@ exports.addToCart = async (req, res) => {
       );
 
       if (itemIndex > -1) {
-        cart.items[itemIndex].qty = quantity; // update qty
+        cart.items[itemIndex].qty = quantity; 
       } else {
-        cart.items.push({ productId, qty: quantity }); // add new item
+        cart.items.push({ productId, qty: quantity });
       }
     }
 
@@ -43,7 +42,7 @@ exports.addToCart = async (req, res) => {
   }
 };
 
-// 📝 Get user cart
+
 exports.getCart = async (req, res) => {
   const userId = req.user.userId;
 
@@ -62,7 +61,7 @@ exports.getCart = async (req, res) => {
   }
 };
 
-// ❌ Remove product from cart
+
 exports.removeFromCart = async (req, res) => {
   const userId = req.user.userId;
   const { productId } = req.params;
@@ -90,7 +89,7 @@ exports.removeFromCart = async (req, res) => {
   }
 };
 
-// 🔄 Clear cart
+
 exports.clearCart = async (req, res) => {
   const userId = req.user.userId;
 

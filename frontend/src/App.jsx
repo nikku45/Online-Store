@@ -13,6 +13,7 @@ import Cart from './Pages/Cart.jsx'
 import Checkout from './Pages/CheckOut.jsx'
 import Order from './Pages/Order.jsx'
 import OrderDetails from './Pages/OrderDetail.jsx'
+import Wishlist from './Pages/Wishlist.jsx'
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path='/orders' element={<Order/>} />
         <Route path='/orders/:orderId' element={<OrderDetails />} />
+        <Route path='/wishlist' element={<Wishlist />} />
       </Routes>
       </div>
       
